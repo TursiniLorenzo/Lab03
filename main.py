@@ -1,4 +1,5 @@
 from autonoleggio import Autonoleggio
+from automobile import Automobile
 from datetime import datetime
 
 def menu():
@@ -21,12 +22,17 @@ def main():
         if scelta == "1":
             nuovo_responsabile = input("Inserisci il nuovo responsabile: ")
             # TODO: Aggiorna responsabile nel sistema
+            autonoleggio = Autonoleggio ("Polito Rent", nuovo_responsabile)
+            print (f"Il nuovo responsabile è: {autonoleggio.__str__()}")
 
         elif scelta == "2":
             while True:
                 try:
                     file_path = input("Inserisci il path del file da caricare: ").strip()
                     autonoleggio.carica_file_automobili(file_path)
+                    for row in Autonoleggio.automobili:
+                        automobile = Automobile(row[0], row[1], row[2], str(row[3]), str(row[4]))
+                        print(automobile)
                     break
                 except Exception as e:
                     print(e)
