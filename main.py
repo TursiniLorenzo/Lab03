@@ -30,7 +30,7 @@ def main():
                 try:
                     file_path = input("Inserisci il path del file da caricare: ").strip()
                     autonoleggio.carica_file_automobili(file_path)
-                    for row in Autonoleggio.automobili:
+                    for row in autonoleggio.automobili:
                         automobile = Automobile(row[0], row[1], row[2], str(row[3]), str(row[4]))
                         print(automobile)
                     break
@@ -52,7 +52,7 @@ def main():
         elif scelta == "4":
             automobili_ordinate = autonoleggio.automobili_ordinate_per_marca()
             for a in automobili_ordinate:
-                print(f'- {a}')
+                print(f'- {" | ".join (a)}')
 
         elif scelta == "5":
             id_auto = input("ID automobile: ")
@@ -65,10 +65,14 @@ def main():
                 print(e)
 
         elif scelta == "6":
-            id_noleggio = input("ID noleggio da terminare: ")
+            id_noleggio = str (input("ID noleggio da terminare: "))
             try:
-                autonoleggio.termina_noleggio(id_noleggio)
-                print(f"Noleggio {id_noleggio} terminato con successo.")
+                risultato = autonoleggio.termina_noleggio(id_noleggio)
+                if risultato :
+                    print(f"Noleggio {id_noleggio} terminato con successo.")
+                else :
+                    print (f"Il noleggio {id_noleggio} non è mai stato effettuato.")
+
             except Exception as e:
                 print(e)
 
